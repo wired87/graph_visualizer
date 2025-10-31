@@ -2,11 +2,9 @@ import networkx as nx
 from pyvis.network import Network
 
 
-def create_g_visual(G:nx.Graph, dest_path, ds=True):
-    # ds = create from datastore
+def create_g_visual(G:nx.Graph, dest_path=None):
     print("G", G)
     # filter graph fr frontend
-
     new_G = nx.Graph()
     for nid, attrs in G.nodes(data=True):
         ntype = attrs.get("type")
