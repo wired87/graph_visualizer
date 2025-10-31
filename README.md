@@ -1,2 +1,2 @@
 # graph_visualizer
-Toolbox for visualisations of Graphs 
+Toolbox for visualisations of nxGraph(s) 
