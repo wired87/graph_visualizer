@@ -20,7 +20,7 @@ self.valid_data_keys = [
             "d_phi", "h", "phi", "vev", "h_prev", "energy", "potential_energy_H",
             "total_energy_H", "mass", "lambda_h", "laplacian_h", "mu_squared_H", "nphi",
             "dmu_phi_neighbors", "psi", "psi_bar", "velocity",
-            "laplacian", "psi_prev", "isospin", "charge",
+            "laplacian", "prev", "isospin", "charge",
             "j_nu", "F_mu_nu", "gauge_group", "spin", "A",
             "dmu_A", "Wp", "dmu_Wp", "Wm", "dmu_Wm", "Z", "dmu_Z", "G",
             "dmu_G"
