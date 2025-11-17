@@ -84,7 +84,11 @@ class MockGUtils:
         # Inject the mock field nodes into the main node dictionary
         self._nodes.update({n["nid"]: n for n in self._nodes.values() if n["type"] != "PIXEL"})
 
-    def get_nodes(self, filter_key=None, filter_value=None, data=True) -> List[Dict[str, Any]]:
+    def get_nodes(
+            self,
+            filter_key=None,
+            filter_value=None,
+        ) -> List[Dict[str, Any]]:
         """// Simulates GUtils.get_nodes to filter by type."""
         results = []
         target_values = [v.upper() for v in filter_value] if isinstance(filter_value, list) else [filter_value.upper()]
