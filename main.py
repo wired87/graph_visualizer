@@ -5,7 +5,7 @@ import os
 from typing import List, Dict, Any
 
 
-class PlotAnimationWorker:
+class PlotAnimator:
     """
     A worker class to generate a time-series plot animation from a list of
     dictionaries, based on specific keys, and save it to a local file.
@@ -173,7 +173,7 @@ if __name__ == '__main__':
     # 2. Define output location
     output_directory = "./animation_output"
 
-    worker = PlotAnimationWorker(
+    worker = PlotAnimator(
         data=demo_data,
         keys_to_plot=keys_to_plot,
         output_dir=output_directory,

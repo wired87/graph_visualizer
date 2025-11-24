@@ -26,89 +26,12 @@ OUTPUT_DIR = "data"
 FIELD_KEY = "energy_value"  # Key used to store the numeric field value
 
 
-class MockGUtils:
-    """// Simulates the required GUtils methods (get_node, get_nodes) to retrieve the graph state."""
-
-    def __init__(self):
-        self._nodes = {}
-        self._build_mock_graph()
-
-    def _build_mock_graph(self):
-        """// Generates mock nodes based on specified criteria."""
-        node_id_counter = 0
-        self.pixel_nids = []
-
-        # 1. Generate PIXEL nodes (27 nodes, 3D grid 3x3x3)
-        positions = np.linspace(-10, 10, 3)
-        for i, x in enumerate(positions):
-            for j, y in enumerate(positions):
-                for k, z in enumerate(positions):
-                    nid = f"P_{node_id_counter}"
-                    self._nodes[nid] = {
-                        "nid": nid,
-                        "type": "PIXEL",
-                        "pos": np.array([x, y, z]),  # 3D position
-                        "field_nids": []  # Links to actual field nodes
-                    }
-                    self.pixel_nids.append(nid)
-                    node_id_counter += 1
-
-        # 2. Generate Field nodes and link them to PIXELs
-        field_id_counter = 0
-        for p_nid in self.pixel_nids:
-            pixel_node = self._nodes[p_nid]
-
-            # Each PIXEL holds several fields (mocking the 'has_field' relation)
-            for f_type in list(ALL_FIELD_TYPES)[:3]:  # Link three fields per pixel
-                f_nid = f"{f_type}_{field_id_counter}"
-
-                # Field data (simulating a complex 4-array or scalar)
-                if 'QUARK' in f_type or 'BOSON' in f_type:
-                    # Complex 4-vector field
-                    f_value = np.random.rand(4) + 1j * np.random.rand(4)
-                else:
-                    # Scalar field (like Higgs or Photon energy)
-                    f_value = np.random.rand(1)
-
-                self._nodes[f_nid] = {
-                    "nid": f_nid,
-                    "type": f_type,
-                    "parent": [p_nid],
-                    "pos": pixel_node["pos"],
-                    FIELD_KEY: f_value,
-                    "initial_energy": np.linalg.norm(f_value.flat)
-                }
-                pixel_node["field_nids"].append(f_nid)
-                field_id_counter += 1
-
-        # Inject the mock field nodes into the main node dictionary
-        self._nodes.update({n["nid"]: n for n in self._nodes.values() if n["type"] != "PIXEL"})
-
-    def get_nodes(
-            self,
-            filter_key=None,
-            filter_value=None,
-        ) -> List[Dict[str, Any]]:
-        """// Simulates GUtils.get_nodes to filter by type."""
-        results = []
-        target_values = [v.upper() for v in filter_value] if isinstance(filter_value, list) else [filter_value.upper()]
-        for nid, attrs in self._nodes.items():
-            if attrs.get(filter_key, "").upper() in target_values:
-                results.append(attrs)
-        return results
-
-    def get_node(self, nid) -> Dict[str, Any]:
-        """// Simulates GUtils.get_node."""
-        return self._nodes.get(nid, {})
-
-
 # 3. Animation Creator Class
-class AnimationCreatorTest:
+class AnimationCreator:
     """// Generates and saves a Matplotlib animation simulating field cluster evolution."""
 
-    def __init__(self, g_utils_instance: MockGUtils):
+    def __init__(self, ):
         # DO USE A GENERAL PYTHON CLASS AND NOT A RAY REMMOTE
-        self.g = g_utils_instance
         self.pixel_nodes_init = self.g.get_nodes(filter_key="type", filter_value=["PIXEL"], data=True)
         self.field_key = FIELD_KEY
         self.output_path = os.path.join(OUTPUT_DIR, "field_animation.mp4")
@@ -268,10 +191,10 @@ class AnimationCreatorTest:
 
 if __name__ == '__main__':
     # 1. Initialize Mock GUtils
-    g_instance = MockGUtils()
 
     # 2. Initialize the Animation Creator Test Class (General Python Class)
-    creator_test = AnimationCreatorTest(g_instance)
+    creator_test = AnimationCreatorTest(
+    )
 
     # 3. Run the complete test workflow
     creator_test.run_test_workflow(frames=20)
