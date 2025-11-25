@@ -60,11 +60,6 @@ def _get_node_colors(node_activity, max_activity=1.0):
     return colors
 
 
-# (Die Funktion _get_edge_style wird hier der Einfachheit halber ausgelassen,
-# da sie nicht direkt korrigiert werden muss und in der Render-Logik enthalten ist.)
-
-# --- 2. Die Rendering-Funktion als Ray Task ---
-
 @ray.remote
 def render_field_graph_3d_remote(
         G_data: typing.Dict[str, typing.Any],

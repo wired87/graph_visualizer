@@ -193,7 +193,7 @@ if __name__ == '__main__':
     # 1. Initialize Mock GUtils
 
     # 2. Initialize the Animation Creator Test Class (General Python Class)
-    creator_test = AnimationCreatorTest(
+    creator_test = AnimationCreator(
     )
 
     # 3. Run the complete test workflow

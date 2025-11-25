@@ -3,7 +3,6 @@ from typing import Any
 import numpy as np
 import matplotlib
 
-from qf_sim._qutip.visualizer import QuTiPRenderer
 
 matplotlib.use("Agg")
 qutip_renderer = QuTiPRenderer()

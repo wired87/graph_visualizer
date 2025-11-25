@@ -4,6 +4,8 @@ import numpy as np
 import os
 from typing import List, Dict, Any
 
+from app_utils import ENV_ID
+
 
 class PlotAnimator:
     """
@@ -15,7 +17,6 @@ class PlotAnimator:
             self,
             parent,
             data: List[Dict[str, Any]],
-
     ):
         """
         Initializes the worker.
@@ -145,14 +146,16 @@ if __name__ == '__main__':
     # ------------------- DEMO DATA (SOA to AOS Conversion) -------------------
     NUM_STEPS = 50
     t = np.arange(NUM_STEPS)
+    index = 0
+
+    qfu = QFUtils()
 
     # Structure of Arrays (SOA) approach: Each key has its own full array.
-    soa_data = {
-        "Key_A": 10 * np.sin(t * 0.2) + 20,
-        "Key_B": 0.5 * t ** 1.2 + 5,
-        "Key_C": np.random.rand(NUM_STEPS) * 5,
-        "Step_Index": t
-    }
+    keys = ["psi"]
+
+    table_id = ENV_ID
+
+    schema = get_actor(name="BQ_SERVICE").get_table_schema.remote()
 
     # Convert SOA to Array of Structures (AOS) for the worker input
     demo_data = []
