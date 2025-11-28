@@ -2,28 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import os
-import random
-import jax.numpy as jnp  # Used for dtype consistency
-from typing import Dict, Any, List, Tuple, Set
-
-# Ensure matplotlib uses a non-interactive backend for file saving
-# This is crucial for running Python scripts without a display server.
+from typing import Dict, Any, List
 try:
     plt.switch_backend('Agg')
 except ImportError:
     pass
-
-# --- Configuration & Mock Data Setup ---
-
-# Node counts based on the user's prompt (used for mock graph generation)
-NODE_COUNTS = {
-    'PIXEL': 27, 'PARAM': 80, 'METHOD': 24, 'MODULE': 3, 'FIELD': 17,
-    'ELECTRON': 2, 'MUON': 2, 'TAU': 2, 'UP_QUARK': 2, 'DOWN_QUARK': 2,
-    'PHOTON': 2, 'W_PLUS': 2, 'W_MINUS': 2, 'Z_BOSON': 2, 'GLUON': 2, 'HIGGS': 2
-}
-ALL_FIELD_TYPES = {'PHOTON', 'GLUON', 'W_PLUS', 'HIGGS', 'UP_QUARK', 'ELECTRON'}
-OUTPUT_DIR = "data"
-FIELD_KEY = "energy_value"  # Key used to store the numeric field value
 
 
 # 3. Animation Creator Class
@@ -33,7 +16,6 @@ class AnimationCreator:
     def __init__(self, ):
         # DO USE A GENERAL PYTHON CLASS AND NOT A RAY REMMOTE
         self.pixel_nodes_init = self.g.get_nodes(filter_key="type", filter_value=["PIXEL"], data=True)
-        self.field_key = FIELD_KEY
         self.output_path = os.path.join(OUTPUT_DIR, "field_animation.mp4")
 
         # Prepare output directory

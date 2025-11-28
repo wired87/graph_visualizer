@@ -14,19 +14,6 @@ from sm.gauge.gauge_utils import GaugeUtils
 from qf_utils.all_subs import ALL_SUBS, FERMIONS, G_FIELDS
 from qf_utils.field_utils import FieldUtils
 
-"""
-
-self.valid_data_keys = [
-            "d_phi", "h", "phi", "vev", "h_prev", "energy", "potential_energy_H",
-            "total_energy_H", "mass", "lambda_h", "laplacian_h", "mu_squared_H", "nphi",
-            "dmu_phi_neighbors", "psi", "psi_bar", "velocity",
-            "laplacian", "prev", "isospin", "charge",
-            "j_nu", "F_mu_nu", "gauge_group", "spin", "A",
-            "dmu_A", "Wp", "dmu_Wp", "Wm", "dmu_Wm", "Z", "dmu_Z", "G",
-            "dmu_G"
-        ]
-
-"""
 
 
 class VisualizerProcessor:
